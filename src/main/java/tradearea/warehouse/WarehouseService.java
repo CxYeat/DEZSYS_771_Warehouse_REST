@@ -2,6 +2,7 @@ package tradearea.warehouse;
 
 import org.springframework.stereotype.Service;
 import tradearea.model.WarehouseData;
+import tradearea.warehouse.WarehouseSimulation;
 
 @Service
 public class WarehouseService {
