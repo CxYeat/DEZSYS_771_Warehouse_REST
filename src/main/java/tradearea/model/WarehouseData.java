@@ -1,48 +1,27 @@
 package tradearea.model;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
+@Getter
+@Setter
 public class WarehouseData {
 	
 	private String warehouseID;
 	private String warehouseName;
 	private String timestamp;
+    private List<ProductData> productData;
 
 	/**
 	 * Constructor
 	 */
 	public WarehouseData() {
-		
 		this.timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date());
-
-	}
-	
-	/**
-	 * Setter and Getter Methods
-	 */
-	public String getWarehouseID() {
-		return warehouseID;
-	}
-
-	public void setWarehouseID(String warehouseID) {
-		this.warehouseID = warehouseID;
-	}
-
-	public String getWarehouseName() {
-		return warehouseName;
-	}
-
-	public void setWarehouseName(String warehouseName) {
-		this.warehouseName = warehouseName;
-	}
-
-	public String getTimestamp() {
-		return timestamp;
-	}
-
-	public void setTimestamp(String timestamp) {
-		this.timestamp = timestamp;
 	}
 
 	/**
