@@ -7,26 +7,45 @@ import java.util.*;
 
 public class WarehouseSimulation {
 
-    private final Map<String, String> warehouses = new HashMap<>();
+    private final Map<String, WarehouseData> warehouses = new HashMap<>();
 
     public WarehouseSimulation() {
-        warehouses.put("001", "Linz Bahnhof");
-        warehouses.put("002", "Wien Hafen");
-        warehouses.put("003", "Grazer Zentrum");
-        warehouses.put("004", "Salzburg Bahnhof");
+        warehouses.put("001", createWarehouse("001", "Linz Bahnhof",
+                "Rechte Nordbhangasse 5", "4020", "Linz", "Österreich"));
+        warehouses.put("002", createWarehouse("002", "Wien Hafen",
+                "Donauhafenstraße 12", "1020", "Wien", "Österreich"));
+        warehouses.put("003", createWarehouse("003", "Grazer Zentrum",
+                "Herrengasse 7", "8010", "Graz", "Österreich"));
+        warehouses.put("004", createWarehouse("004", "Salzburg Bahnhof",
+                "Bahnhofstraße 1", "5020", "Salzburg", "Österreich"));
     }
 
-	private double getRandomDouble( int inMinimum, int inMaximum ) {
-		double number = ( Math.random() * ( (inMaximum-inMinimum) + 1 )) + inMinimum; 
-		double rounded = Math.round(number * 100.0) / 100.0; 
-		return rounded;
-		
-	}
-	private int getRandomInt( int inMinimum, int inMaximum ) {
-		double number = ( Math.random() * ( (inMaximum-inMinimum) + 1 )) + inMinimum;
-		Long rounded = Math.round(number);
-		return rounded.intValue();
-	}
+    /**
+     * Hilfsmethode zum Erstellen eines Warehouses mit vollständigen Daten.
+     */
+    private WarehouseData createWarehouse(String id, String name,
+                                          String address, String postal, String city, String country) {
+        WarehouseData data = new WarehouseData();
+        data.setWarehouseID(id);
+        data.setWarehouseName(name);
+        data.setWarehouseAddress(address);
+        data.setWarehousePostalCode(postal);
+        data.setWarehouseCity(city);
+        data.setWarehouseCountry(country);
+        return data;
+    }
+
+    private double getRandomDouble( int inMinimum, int inMaximum ) {
+        double number = ( Math.random() * ( (inMaximum-inMinimum) + 1 )) + inMinimum;
+        double rounded = Math.round(number * 100.0) / 100.0;
+        return rounded;
+
+    }
+    private int getRandomInt( int inMinimum, int inMaximum ) {
+        double number = ( Math.random() * ( (inMaximum-inMinimum) + 1 )) + inMinimum;
+        Long rounded = Math.round(number);
+        return rounded.intValue();
+    }
     private ProductData createProduct() {
         Random random = new Random();
         Map<String, String> products = new HashMap<>();
@@ -68,12 +87,19 @@ public class WarehouseSimulation {
         return list;
     }
 
-	public WarehouseData getData(String inID) {
+    public WarehouseData getData(String inID) {
         WarehouseData data = new WarehouseData();
         data.setWarehouseID(inID);
-        String name = warehouses.getOrDefault(inID, "Unbekanntes Lager");
-        data.setWarehouseName(name);
+        WarehouseData daten = warehouses.getOrDefault(
+                inID,
+                createWarehouse("000", "Unbekanntes Lager", "Unbekannte Adresse", "0000", "Unbekannte Stadt", "Unbekanntes Land")
+        );
+        data.setWarehouseName(daten.getWarehouseName());
+        data.setWarehouseAddress(daten.getWarehouseAddress());
+        data.setWarehousePostalCode(daten.getWarehousePostalCode());
+        data.setWarehouseCity(daten.getWarehouseCity());
+        data.setWarehouseCountry(daten.getWarehouseCountry());
         data.setProductData(createProducts(5));
         return data;
-	}
+    }
 }

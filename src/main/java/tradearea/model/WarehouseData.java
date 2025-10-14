@@ -1,19 +1,26 @@
 package tradearea.model;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+@AllArgsConstructor
 @Getter
 @Setter
+@JacksonXmlRootElement(localName = "warehouse")
 public class WarehouseData {
 	
 	private String warehouseID;
 	private String warehouseName;
+    private String warehouseAddress;
+    private String warehousePostalCode;
+    private String warehouseCity;
+    private String warehouseCountry;
 	private String timestamp;
     private List<ProductData> productData;
 
